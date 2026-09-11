@@ -1,0 +1,30 @@
+{
+  "name": "winnipeggraffiti",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static catalogue of graffiti and outdoor art in Winnipeg and Manitoba.",
+  "type": "module",
+  "workspaces": [
+    "importer",
+    "site"
+  ],
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "scripts": {
+    "import": "npm run import --workspace importer --",
+    "seed": "npm run seed --workspace importer",
+    "build": "npm run build --workspace site",
+    "dev": "npm run dev --workspace site",
+    "preview": "npm run preview --workspace site",
+    "test": "npm run test --workspace importer && npm run test --workspace site",
+    "deploy": "wrangler deploy --config wrangler.jsonc",
+    "deploy:check": "wrangler deploy --dry-run --config wrangler.jsonc"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.128.0"
+  }
+}

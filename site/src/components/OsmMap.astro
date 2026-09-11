@@ -1,0 +1,21 @@
+---
+import { osmUrl, WINNIPEG_CENTER } from '../lib/data.js';
+
+const { markers = [], center = WINNIPEG_CENTER, zoom = 12, fit = true } = Astro.props;
+const payload = JSON.stringify({ markers, center, zoom, fit }).replace(/</g, '\\u003c');
+const fallbackHref =
+  markers.length === 1 ? osmUrl(markers[0], zoom) : osmUrl(center, Math.min(zoom, 13));
+---
+
+<div class="osm-map-wrap">
+  <div class="osm-map" data-osm-map>
+    <script type="application/json" is:inline set:html={payload} />
+  </div>
+  <p class="map-fallback">
+    <a href={fallbackHref} rel="noopener noreferrer" target="_blank">Open this map on OpenStreetMap</a>
+  </p>
+</div>
+
+<script>
+  import '../scripts/osm-map.js';
+</script>

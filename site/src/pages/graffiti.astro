@@ -1,0 +1,24 @@
+---
+import ArtTable from '../components/ArtTable.astro';
+import Layout from '../layouts/Layout.astro';
+import OsmMap from '../components/OsmMap.astro';
+import { artsInCategory, loadSite, mapMarkers, WINNIPEG_CENTER } from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { arts } = await loadSite();
+const listed = artsInCategory(arts, 'graffiti');
+const markers = mapMarkers(listed);
+---
+
+<Layout
+  title={`Graffiti — ${SITE_NAME}`}
+  description="Graffiti pieces in Winnipeg and Manitoba, with OpenStreetMap locations."
+>
+  <section class="hero">
+    <h1>Graffiti</h1>
+    <p>Pieces tagged as graffiti — walls, throw-ups, pieces, and related work photographed outdoors.</p>
+  </section>
+
+  <OsmMap markers={markers} center={WINNIPEG_CENTER} zoom={11} />
+  <ArtTable arts={listed} empty="No graffiti pieces in the catalogue yet." />
+</Layout>

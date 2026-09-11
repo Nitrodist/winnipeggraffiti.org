@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import OsmMap from '../components/OsmMap.astro';
+import {
+  artsInRegion,
+  count,
+  loadSite,
+  mapMarkers,
+  regionHref,
+  WINNIPEG_CENTER,
+} from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { arts, regions } = await loadSite();
+const markers = mapMarkers(arts);
+const listed = regions.map((region) => ({
+  ...region,
+  count: artsInRegion(arts, region).length,
+}));
+---
+
+<Layout
+  title={`Map of Winnipeg — ${SITE_NAME}`}
+  description="OpenStreetMap of graffiti and outdoor art in Winnipeg, with links to every neighbourhood region."
+>
+  <section class="hero">
+    <h1>Map of Winnipeg</h1>
+    <p>
+      Every piece in the catalogue on OpenStreetMap, plus a list of Winnipeg regions.
+      Open a region to centre the map there and see that neighbourhood’s table.
+    </p>
+  </section>
+
+  <p class="map-legend">
+    <span><span class="swatch swatch-graffiti"></span>Graffiti</span>
+    <span><span class="swatch swatch-outdoor"></span>Outdoor art</span>
+  </p>
+  <OsmMap markers={markers} center={WINNIPEG_CENTER} zoom={11} />
+
+  <h2 class="section">Regions of Winnipeg</h2>
+  <p>{count(listed.length, 'region')} in the catalogue.</p>
+  <ul class="region-columns">
+    {
+      listed.map((region) => (
+        <li>
+          <a href={regionHref(region)}>{region.name}</a>
+          {region.count > 0 && <span class="count"> · {count(region.count)}</span>}
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

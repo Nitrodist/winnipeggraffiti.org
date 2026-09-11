@@ -1,0 +1,71 @@
+---
+import ArtCard from '../components/ArtCard.astro';
+import Layout from '../layouts/Layout.astro';
+import OsmMap from '../components/OsmMap.astro';
+import { count, loadSite, mapMarkers, WINNIPEG_CENTER } from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { lastFive, stats, arts } = await loadSite();
+const markers = mapMarkers(arts);
+---
+
+<Layout
+  title={`${SITE_NAME} — graffiti and outdoor art in Winnipeg`}
+  description="A catalogue of graffiti and outdoor art in Winnipeg and Manitoba, with maps, regions, and artist pages."
+>
+  <section class="hero">
+    <h1>Graffiti and outdoor art in Winnipeg</h1>
+    <p>
+      Photographs of walls, murals, and other outdoor work around Winnipeg and Manitoba,
+      plotted on OpenStreetMap and grouped by neighbourhood.
+    </p>
+
+    <dl class="stat-grid">
+      <div class="stat">
+        <dt>Pieces</dt>
+        <dd>{stats.pieces.toLocaleString('en-CA')}</dd>
+      </div>
+      <div class="stat">
+        <dt>Graffiti</dt>
+        <dd>{stats.graffiti.toLocaleString('en-CA')}</dd>
+      </div>
+      <div class="stat">
+        <dt>Outdoor art</dt>
+        <dd>{stats.outdoorArt.toLocaleString('en-CA')}</dd>
+      </div>
+      <div class="stat">
+        <dt>Artists</dt>
+        <dd>{stats.artists.toLocaleString('en-CA')}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <h2 class="section">Latest pieces</h2>
+  <p>The five most recently added records in the catalogue.</p>
+
+  {
+    lastFive.length > 0 ? (
+      <div class="art-grid">
+        {lastFive.map((art) => (
+          <ArtCard art={art} />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">No pieces in the catalogue yet.</p>
+    )
+  }
+
+  <h2 class="section">Map of Winnipeg</h2>
+  <p>
+    Every tagged piece in the catalogue. {count(markers.length, 'marker')} on OpenStreetMap.
+    Yellow is graffiti; blue is outdoor art.
+  </p>
+  <p class="map-legend">
+    <span><span class="swatch swatch-graffiti"></span>Graffiti</span>
+    <span><span class="swatch swatch-outdoor"></span>Outdoor art</span>
+  </p>
+  <OsmMap markers={markers} center={WINNIPEG_CENTER} zoom={11} />
+  <p>
+    <a href="/map">Open the full map of Winnipeg, with every region</a>
+  </p>
+</Layout>

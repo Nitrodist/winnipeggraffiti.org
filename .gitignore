@@ -1,0 +1,16 @@
+node_modules/
+
+# Astro build artifacts
+site/dist/
+site/.astro/
+
+# Reference clone of cheapmlcc — used locally, not part of this site.
+cheapmlcc-copy/
+
+# Import drop folder (keep the directory via .gitkeep)
+inbox/*
+!inbox/.gitkeep
+
+.cache/
+.DS_Store
+*.log

@@ -1,0 +1,37 @@
+---
+import ArtistName from './ArtistName.astro';
+import { artHref, categoryName, regionHref } from '../lib/data.js';
+
+const { art } = Astro.props;
+---
+
+<article class="art-card">
+  <a class="art-card-media" href={artHref(art)}>
+    {
+      art.imageUrl ? (
+        <img src={art.imageUrl} alt="" width="480" height="360" loading="lazy" />
+      ) : (
+        <div class="art-card-placeholder" aria-hidden="true" />
+      )
+    }
+  </a>
+  <h3><a href={artHref(art)}>{art.name}</a></h3>
+  <p>
+    <ArtistName art={art} />
+    {
+      art.region && (
+        <>
+          {' · '}
+          <a href={regionHref(art.region)}>{art.region.name ?? art.region}</a>
+        </>
+      )
+    }
+  </p>
+  {
+    art.category && (
+      <span class:list={['pill', art.category === 'outdoor-art' && 'muted']}>
+        {categoryName(art.category)}
+      </span>
+    )
+  }
+</article>

@@ -1,0 +1,27 @@
+---
+import ArtTable from '../components/ArtTable.astro';
+import Layout from '../layouts/Layout.astro';
+import OsmMap from '../components/OsmMap.astro';
+import { artsInCategory, loadSite, mapMarkers, WINNIPEG_CENTER } from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { arts } = await loadSite();
+const listed = artsInCategory(arts, 'outdoor-art');
+const markers = mapMarkers(listed);
+---
+
+<Layout
+  title={`Outdoor art — ${SITE_NAME}`}
+  description="Outdoor art in Winnipeg and Manitoba — murals, sculpture, and other commissioned or public work."
+>
+  <section class="hero">
+    <h1>Outdoor art</h1>
+    <p>
+      Pieces tagged as outdoor art rather than graffiti: murals, sculpture, and other work
+      made to live outside.
+    </p>
+  </section>
+
+  <OsmMap markers={markers} center={WINNIPEG_CENTER} zoom={11} />
+  <ArtTable arts={listed} empty="No outdoor art in the catalogue yet." />
+</Layout>

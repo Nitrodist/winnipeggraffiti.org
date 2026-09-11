@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_NAME } from '../lib/site.js';
+---
+
+<Layout
+  title={`About — ${SITE_NAME}`}
+  description="How WinnipegGraffiti.org stores records and builds its static pages."
+>
+  <section class="hero">
+    <h1>About</h1>
+    <p>A static catalogue of graffiti and outdoor art, generated from JSONL tables.</p>
+  </section>
+
+  <div class="prose">
+    <h2>Data</h2>
+    <p>
+      Each <code>.jsonl</code> file is a table: one complete JSON object per line, one line per
+      row. <code>arts.jsonl</code> holds the pieces, <code>artists.jsonl</code> the optional
+      artist pages, and <code>regions.jsonl</code> the neighbourhoods used on the map.
+    </p>
+    <p>
+      An art record always stores an artist <em>name</em> for display. When
+      <code>artist_id</code> points at a row in <code>artists.jsonl</code>, that name becomes a
+      link to the artist page.
+    </p>
+    <p>
+      Locations are OpenStreetMap coordinates — decimal latitude and longitude — the same pair
+      OSM uses in browse URLs such as
+      <code>https://www.openstreetmap.org/?mlat=49.8951&amp;mlon=-97.1384</code>.
+    </p>
+
+    <h2>Categories</h2>
+    <p>
+      Pieces are tagged <a href="/graffiti">graffiti</a> or
+      <a href="/outdoor-art">outdoor art</a>, kept as two separate categories rather
+      than one catch-all.
+    </p>
+
+    <h2>Adding photos</h2>
+    <p>
+      Drop image files in a directory (and optional sidecar <code>.json</code> files with the
+      same basename) and run:
+    </p>
+    <p><code>npm run import -- ./inbox</code></p>
+    <p>
+      The importer reads GPS and other tags from EXIF, then prompts in the terminal for
+      anything still missing — name, neighbourhood, category, artist, location as an OSM URL
+      or <code>lat, lon</code> pair.
+    </p>
+
+    <h2>Building</h2>
+    <p>
+      <code>npm run build</code> emits static HTML into <code>site/dist/</code>. Hosting is an
+      assets-only Cloudflare Worker; nothing is fetched at request time.
+    </p>
+  </div>
+</Layout>

@@ -1,0 +1,40 @@
+---
+import ArtTable from '../../components/ArtTable.astro';
+import Layout from '../../layouts/Layout.astro';
+import OsmMap from '../../components/OsmMap.astro';
+import { artsInRegion, loadSite, mapMarkers } from '../../lib/data.js';
+import { SITE_NAME } from '../../lib/site.js';
+
+export async function getStaticPaths() {
+  const { regions, arts } = await loadSite();
+  return regions.map((region) => ({
+    params: { slug: region.id },
+    props: { region, arts: artsInRegion(arts, region) },
+  }));
+}
+
+const { region, arts } = Astro.props;
+const markers = mapMarkers(arts);
+const center = region.location;
+---
+
+<Layout
+  title={`${region.name} — ${SITE_NAME}`}
+  description={`Graffiti and outdoor art in ${region.name}, Winnipeg, with an OpenStreetMap centred on the neighbourhood.`}
+>
+  <p class="kicker">
+    <a href="/map">Map of Winnipeg</a>
+    {' · '}
+    {region.name}
+  </p>
+
+  <section class="hero">
+    <h1>{region.name}</h1>
+    <p>Pieces recorded in this region, with the map centred on {region.name}.</p>
+  </section>
+
+  <OsmMap markers={markers} center={center} zoom={region.zoom ?? 14} fit={false} />
+
+  <h2 class="section">Pieces in {region.name}</h2>
+  <ArtTable arts={arts} empty={`No pieces listed in ${region.name} yet.`} />
+</Layout>

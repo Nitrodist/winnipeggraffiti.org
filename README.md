@@ -1,133 +1,150 @@
 # WinnipegGraffiti.org
 
-I am planning on building a website that hosts images, pages, categories, maps,
-and more related to graffiti art and outdoor art in Winnipeg and Manitoba.
+A static catalogue of graffiti and outdoor art in Winnipeg and Manitoba. Built
+with [Astro](https://astro.build) and deployed as an assets-only Cloudflare
+Worker. Locations use [OpenStreetMap](https://www.openstreetmap.org).
 
-I am planning on building the site using Astro as a static site generator and
-then host the website on Cloudflare pages. I have previously built a site,
-cheapmlcc.ca, with Astro and hosted it with Cloudflare pages. I would like to
-replicate it entirely as I think its techniques are excellent. Its code has
-been cloned into the `cheapmlcc-copy` directory for you to copy and use.
+The catalogue is a handful of [JSONL](https://jsonltools.com/what-is-jsonl)
+files: one complete JSON value per line, one file per table. The site reads them
+at build time. There is no server-side database.
 
-Within there, there are scripts to scrape a website. We don't need that at all.
-However, the output of it was useful as it produced JSONL files
-(https://jsonltools.com/what-is-jsonl) where each line is a valid JSON value
-and it also represents a valid 'row' in our 'database' where each JSONL file
-represents a table in our 'database', so-to-speak.
+## Quick start
 
-I would like to use the same structure. Instead of those existing files,
-though, we will have a new file called 'arts.jsonl' and each record is an art
-record with attributes like name, location that is an OpenStreetmaps
-https://www.openstreetmap.org compatible value, an artist name, an artist_id
-representing a record in the artists.jsonl related data structure. I would also
-like to have a regions of Winnipeg list with the following entries:
+Requires Node 20.6 or newer.
 
-```
-The North End
-Luxton
-St. John's
-Burrows
-William Whyte
-The West End
-Minto
-Polo Park
-West Wolseley
-Daniel McIntyre
-Corydon Village
-Crescentwood
-West Broadway
-The Forks
-Chinatown
-Exchange District
-Point Douglas
-Weston
-Amber Trails
-Seven Oaks
-Glenelm
-Chalmers
-Windsor Park
-Linden Ridge
-Deer Lodge
-Varsity View
-Old Tuxedo
-Headingly
-Osborne Village
-St. Boniface
-Transcona
-St. James
-Garden City
-The Maples
-St. Vital
-Fort Garry
-Downtown
-Wolseley
-Elmwood
-Silver Heights
-Sturgeon Creek
-Assiniboia Downs
-Westwood
-Welington Crescent
-Charleswood
-Assiniboine Park
-Assiniboine Forest
-Tuxedo
-River Heights
-West Kildonan
-Tyndall Park
-Kildonan Park
-Riverdale
-Rivergrove
-North Kildonan
-East Kildonan
-Rossmere
-East Saint Paul
-West Saint Paul
-North Transcona
-Transcona Yards
-Symington Yards
-Sage Creek
-Island Lakes
-Southdale
-Fort Richmond
-Richmond West
-Waverley Heights
-University of Manitoba
-Kings Park
-St. Norbert
-Bridgwater
-Fort Whyte
-Waverley West
-South Point
-Linden Woods
-Whyte Ridge
-Grant Park
+```bash
+npm install
+npm run seed       # writes data/regions.jsonl and data/categories.jsonl
+npm run dev        # http://localhost:4321
+npm run build      # site/dist/ as plain static HTML
 ```
 
-I would like to optionally have a artist name and a artist record (represented
-by artist_id) where we always display the artist name and then when there is a
-related artist record then we link to it and display it on an artist page of
-the Astro website. On the artist page, it needs to have all of the information
-of the Artist and then a list of their art records (with hyperlinks of course).
+## Data
 
-On the home screen, we should have a last 5 arts listing and we should have a
-map of tags in Winnipeg, using OpenStreetMap (of course).
+| File                    | Table                                              |
+| ----------------------- | -------------------------------------------------- |
+| `data/arts.jsonl`       | One row per photographed piece                     |
+| `data/artists.jsonl`    | Optional artist pages, joined from `arts.artist_id` |
+| `data/regions.jsonl`    | Winnipeg neighbourhoods, with an OSM centre        |
+| `data/categories.jsonl` | `graffiti` and `outdoor-art`                       |
 
-We need a dedicated map of Winnipeg page with links to (our) regions of
-Winnipeg and on those pages we need to show that region and show a map with
-that region centred, as well as a html table listing of each art in that
-section.
+An art row always stores an artist name (`artist` / `artist_name`) for display.
+`artist_id` is optional: when it points at a row in `artists.jsonl`, the name
+becomes a link to that artist’s page, which lists every piece of theirs. Graffiti
+and outdoor art are separate category tags, never one mixed list.
 
-We need individual 'art' pages (identified by their ID record). On the page it
-should show the image, all of the related information of the art record, and a
-map of where it is in Winnipeg.
+Sample rows in `arts.jsonl` are placeholders so the maps and pages have something
+to show; replace them by importing photographs.
 
-To add items, we need to have a way to accept a list (probably a directory...)
-of files to import and then use the metadata attached to it to populate the
-record. Missing information should be prompted to the user. Somehow. Because
-we're developing this using a terminal, we will opt for a terminal UI to prompt
-for missing information per imported record. Ideally we use a `npm run ...`
-script to handle this kind of import process.
+Location is OpenStreetMap-compatible WGS84:
 
-When we are setting the cateogry / tag of an item, I would like to have
-separate tags / categories for 'graffiti' and for 'outdoor art'.
+```json
+{ "lat": 49.8985, "lon": -97.1403 }
+```
 
+## Importing photos
+
+```bash
+npm run import -- ./photos
+```
+
+The importer walks a directory (or a single file), copies images into
+`site/public/images/arts/{id}.{ext}`, and appends a row to `arts.jsonl`. It reads
+EXIF GPS and titles when they exist, and a sidecar `mural.json` next to
+`mural.jpg`. Anything still missing is prompted for in the terminal: name,
+category (graffiti or outdoor art), region, location (an OSM URL or `lat,lon`),
+and optionally an artist name.
+
+If the artist name matches an existing `artists.jsonl` row you can link it. If
+not, you can create an artist page on the spot.
+
+Sidecar example:
+
+```json
+{
+  "name": "Band name piece",
+  "category": "graffiti",
+  "region": "Exchange District",
+  "location": { "lat": 49.8985, "lon": -97.1403 },
+  "artist_name": "Someone",
+  "create_artist": true,
+  "description": "North-facing wall on Albert."
+}
+```
+
+`location` may also be an OpenStreetMap URL:
+
+`https://www.openstreetmap.org/#map=18/49.8985/-97.1403`
+
+Drop files in `inbox/` and run `npm run import` with no arguments to use that
+folder.
+
+## The site
+
+| Route              | Contents                                              |
+| ------------------ | ----------------------------------------------------- |
+| `/`                | Latest five pieces and a map of every tagged location |
+| `/map`             | City map plus every Winnipeg region                   |
+| `/region/[slug]`   | Region map (centred there) and a table of pieces      |
+| `/art/[id]`        | Photograph, record fields, and a map of the site      |
+| `/artist/[id]`     | Artist record and their pieces                        |
+| `/graffiti`        | Pieces tagged graffiti                                |
+| `/outdoor-art`     | Pieces tagged outdoor art                             |
+
+Set `WINNIPEG_DATA_DIR` to build against JSONL in a different directory.
+
+## Deploying to Cloudflare
+
+The site deploys as an **assets-only Worker** (Cloudflare Workers Static Assets).
+Configuration lives in `wrangler.jsonc`, which points at `site/dist` and has no
+`main`, because there is no server-side code.
+
+Cloudflare Workers Builds settings:
+
+| Setting        | Value                 |
+| -------------- | --------------------- |
+| Build command  | `npm run build`       |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | repository root (`/`) |
+
+Validate the config without deploying anything:
+
+```bash
+npm run build
+npm run deploy:check   # wrangler deploy --dry-run
+```
+
+Deploy by hand:
+
+```bash
+npm run deploy
+```
+
+**`wrangler.jsonc` must be committed.** Without it, `wrangler deploy` falls back
+to project auto-detection, which refuses to run at the root of an npm workspace.
+
+**`data/*.jsonl` must be committed.** The site reads the tables at build time, so
+JSONL is a build input, not a build artifact. `site/dist/` stays gitignored
+because Cloudflare rebuilds it.
+
+## Tests
+
+```bash
+npm test
+```
+
+## Layout
+
+```
+data/                     JSONL tables (committed)
+importer/
+  src/cli.js              `npm run import` entry
+  src/import.js           directory walk, sidecar merge, JSONL append
+  src/exif.js             GPS / title from photos
+  src/location.js         OSM URL and lat,lon parsing
+  src/regions.js          Winnipeg neighbourhood list
+site/
+  src/lib/data.js         build-time JSONL loader
+  src/components/         map, table, cards
+  src/pages/              routes
+```

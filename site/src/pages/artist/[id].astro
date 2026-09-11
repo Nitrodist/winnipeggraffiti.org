@@ -1,0 +1,65 @@
+---
+import ArtTable from '../../components/ArtTable.astro';
+import Layout from '../../layouts/Layout.astro';
+import { loadSite } from '../../lib/data.js';
+import { SITE_NAME } from '../../lib/site.js';
+
+export async function getStaticPaths() {
+  const { artists } = await loadSite();
+  return artists
+    .filter((artist) => artist.id)
+    .map((artist) => ({
+      params: { id: String(artist.id) },
+      props: { artist },
+    }));
+}
+
+const { artist } = Astro.props;
+---
+
+<Layout
+  title={`${artist.name} — ${SITE_NAME}`}
+  description={`Works by ${artist.name} in the Winnipeg graffiti and outdoor art catalogue.`}
+>
+  <article class="artist-page">
+    <p class="kicker"><a href="/artists">Artists</a></p>
+    <h1>{artist.name}</h1>
+    {artist.bio && <p class="lede">{artist.bio}</p>}
+
+    <dl class="dl-meta">
+      {artist.website && (
+        <>
+          <dt>Website</dt>
+          <dd>
+            <a href={artist.website} rel="noopener noreferrer" target="_blank">
+              {artist.website}
+            </a>
+          </dd>
+        </>
+      )}
+      {artist.instagram && (
+        <>
+          <dt>Instagram</dt>
+          <dd>
+            <a
+              href={
+                artist.instagram.startsWith('http')
+                  ? artist.instagram
+                  : `https://instagram.com/${String(artist.instagram).replace(/^@/, '')}`
+              }
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {artist.instagram}
+            </a>
+          </dd>
+        </>
+      )}
+      <dt>Record id</dt>
+      <dd>{artist.id}</dd>
+    </dl>
+
+    <h2 class="section">Pieces</h2>
+    <ArtTable arts={artist.arts} empty={`No pieces linked to ${artist.name} yet.`} />
+  </article>
+</Layout>

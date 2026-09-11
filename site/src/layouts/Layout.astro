@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import { SITE_NAME } from '../lib/site.js';
+
+const { title, description } = Astro.props;
+const pathname = Astro.url.pathname;
+const isCurrent = (href) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href) ? 'page' : undefined;
+---
+
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="canonical" href={Astro.url.pathname} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">winnipeg<span>graffiti</span></a>
+        <nav>
+          <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>Home</a>
+          <a href="/map" aria-current={isCurrent('/map')}>Map</a>
+          <a href="/graffiti" aria-current={isCurrent('/graffiti')}>Graffiti</a>
+          <a href="/outdoor-art" aria-current={isCurrent('/outdoor-art')}>Outdoor art</a>
+          <a href="/artists" aria-current={isCurrent('/artist')}>Artists</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          {SITE_NAME} is a catalogue of graffiti and outdoor art in Winnipeg and Manitoba,
+          located with OpenStreetMap. Pieces are photographed in public and listed as a
+          record of what is on the walls, not as an invitation to trespass.
+        </p>
+        <p class="footer-links">
+          <a href="/map">Map of Winnipeg</a>
+          <a href="/categories">Categories</a>
+          <a href="/about">About</a>
+          <a href="/terms">Terms</a>
+          <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer">OpenStreetMap</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

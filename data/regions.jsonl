@@ -1,0 +1,78 @@
+{"id":"the-north-end","name":"The North End","location":{"lat":49.918,"lon":-97.135},"zoom":14}
+{"id":"luxton","name":"Luxton","location":{"lat":49.928,"lon":-97.122},"zoom":15}
+{"id":"st-johns","name":"St. John's","location":{"lat":49.93,"lon":-97.132},"zoom":15}
+{"id":"burrows","name":"Burrows","location":{"lat":49.932,"lon":-97.148},"zoom":15}
+{"id":"william-whyte","name":"William Whyte","location":{"lat":49.912,"lon":-97.138},"zoom":15}
+{"id":"the-west-end","name":"The West End","location":{"lat":49.888,"lon":-97.175},"zoom":14}
+{"id":"minto","name":"Minto","location":{"lat":49.882,"lon":-97.178},"zoom":15}
+{"id":"polo-park","name":"Polo Park","location":{"lat":49.882,"lon":-97.198},"zoom":15}
+{"id":"west-wolseley","name":"West Wolseley","location":{"lat":49.878,"lon":-97.178},"zoom":15}
+{"id":"daniel-mcintyre","name":"Daniel McIntyre","location":{"lat":49.89,"lon":-97.168},"zoom":15}
+{"id":"corydon-village","name":"Corydon Village","location":{"lat":49.87,"lon":-97.152},"zoom":15}
+{"id":"crescentwood","name":"Crescentwood","location":{"lat":49.862,"lon":-97.162},"zoom":15}
+{"id":"west-broadway","name":"West Broadway","location":{"lat":49.886,"lon":-97.155},"zoom":15}
+{"id":"the-forks","name":"The Forks","location":{"lat":49.887,"lon":-97.131},"zoom":16}
+{"id":"chinatown","name":"Chinatown","location":{"lat":49.9,"lon":-97.14},"zoom":16}
+{"id":"exchange-district","name":"Exchange District","location":{"lat":49.898,"lon":-97.138},"zoom":16}
+{"id":"point-douglas","name":"Point Douglas","location":{"lat":49.906,"lon":-97.128},"zoom":15}
+{"id":"weston","name":"Weston","location":{"lat":49.908,"lon":-97.185},"zoom":15}
+{"id":"amber-trails","name":"Amber Trails","location":{"lat":49.957,"lon":-97.205},"zoom":15}
+{"id":"seven-oaks","name":"Seven Oaks","location":{"lat":49.948,"lon":-97.128},"zoom":14}
+{"id":"glenelm","name":"Glenelm","location":{"lat":49.908,"lon":-97.088},"zoom":15}
+{"id":"chalmers","name":"Chalmers","location":{"lat":49.898,"lon":-97.082},"zoom":15}
+{"id":"windsor-park","name":"Windsor Park","location":{"lat":49.852,"lon":-97.078},"zoom":14}
+{"id":"linden-ridge","name":"Linden Ridge","location":{"lat":49.838,"lon":-97.158},"zoom":15}
+{"id":"deer-lodge","name":"Deer Lodge","location":{"lat":49.878,"lon":-97.228},"zoom":15}
+{"id":"varsity-view","name":"Varsity View","location":{"lat":49.818,"lon":-97.138},"zoom":15}
+{"id":"old-tuxedo","name":"Old Tuxedo","location":{"lat":49.868,"lon":-97.218},"zoom":15}
+{"id":"headingly","name":"Headingly","location":{"lat":49.876,"lon":-97.392},"zoom":13}
+{"id":"osborne-village","name":"Osborne Village","location":{"lat":49.877,"lon":-97.146},"zoom":16}
+{"id":"st-boniface","name":"St. Boniface","location":{"lat":49.888,"lon":-97.108},"zoom":14}
+{"id":"transcona","name":"Transcona","location":{"lat":49.895,"lon":-97.005},"zoom":13}
+{"id":"st-james","name":"St. James","location":{"lat":49.882,"lon":-97.218},"zoom":14}
+{"id":"garden-city","name":"Garden City","location":{"lat":49.948,"lon":-97.152},"zoom":14}
+{"id":"the-maples","name":"The Maples","location":{"lat":49.958,"lon":-97.172},"zoom":14}
+{"id":"st-vital","name":"St. Vital","location":{"lat":49.848,"lon":-97.112},"zoom":13}
+{"id":"fort-garry","name":"Fort Garry","location":{"lat":49.822,"lon":-97.148},"zoom":13}
+{"id":"downtown","name":"Downtown","location":{"lat":49.895,"lon":-97.144},"zoom":15}
+{"id":"wolseley","name":"Wolseley","location":{"lat":49.877,"lon":-97.168},"zoom":15}
+{"id":"elmwood","name":"Elmwood","location":{"lat":49.912,"lon":-97.098},"zoom":14}
+{"id":"silver-heights","name":"Silver Heights","location":{"lat":49.878,"lon":-97.248},"zoom":15}
+{"id":"sturgeon-creek","name":"Sturgeon Creek","location":{"lat":49.882,"lon":-97.268},"zoom":15}
+{"id":"assiniboia-downs","name":"Assiniboia Downs","location":{"lat":49.882,"lon":-97.328},"zoom":14}
+{"id":"westwood","name":"Westwood","location":{"lat":49.872,"lon":-97.288},"zoom":14}
+{"id":"welington-crescent","name":"Welington Crescent","location":{"lat":49.868,"lon":-97.172},"zoom":15}
+{"id":"charleswood","name":"Charleswood","location":{"lat":49.852,"lon":-97.282},"zoom":13}
+{"id":"assiniboine-park","name":"Assiniboine Park","location":{"lat":49.872,"lon":-97.232},"zoom":15}
+{"id":"assiniboine-forest","name":"Assiniboine Forest","location":{"lat":49.848,"lon":-97.258},"zoom":15}
+{"id":"tuxedo","name":"Tuxedo","location":{"lat":49.862,"lon":-97.218},"zoom":14}
+{"id":"river-heights","name":"River Heights","location":{"lat":49.858,"lon":-97.172},"zoom":14}
+{"id":"west-kildonan","name":"West Kildonan","location":{"lat":49.938,"lon":-97.132},"zoom":14}
+{"id":"tyndall-park","name":"Tyndall Park","location":{"lat":49.932,"lon":-97.182},"zoom":14}
+{"id":"kildonan-park","name":"Kildonan Park","location":{"lat":49.942,"lon":-97.098},"zoom":15}
+{"id":"riverdale","name":"Riverdale","location":{"lat":49.868,"lon":-97.118},"zoom":15}
+{"id":"rivergrove","name":"Rivergrove","location":{"lat":49.928,"lon":-97.072},"zoom":15}
+{"id":"north-kildonan","name":"North Kildonan","location":{"lat":49.938,"lon":-97.068},"zoom":14}
+{"id":"east-kildonan","name":"East Kildonan","location":{"lat":49.918,"lon":-97.082},"zoom":14}
+{"id":"rossmere","name":"Rossmere","location":{"lat":49.928,"lon":-97.088},"zoom":15}
+{"id":"east-saint-paul","name":"East Saint Paul","location":{"lat":49.978,"lon":-97.042},"zoom":13}
+{"id":"west-saint-paul","name":"West Saint Paul","location":{"lat":50.012,"lon":-97.078},"zoom":13}
+{"id":"north-transcona","name":"North Transcona","location":{"lat":49.912,"lon":-97.008},"zoom":14}
+{"id":"transcona-yards","name":"Transcona Yards","location":{"lat":49.878,"lon":-97.028},"zoom":15}
+{"id":"symington-yards","name":"Symington Yards","location":{"lat":49.858,"lon":-97.048},"zoom":15}
+{"id":"sage-creek","name":"Sage Creek","location":{"lat":49.828,"lon":-97.018},"zoom":14}
+{"id":"island-lakes","name":"Island Lakes","location":{"lat":49.838,"lon":-97.048},"zoom":15}
+{"id":"southdale","name":"Southdale","location":{"lat":49.838,"lon":-97.082},"zoom":14}
+{"id":"fort-richmond","name":"Fort Richmond","location":{"lat":49.798,"lon":-97.148},"zoom":15}
+{"id":"richmond-west","name":"Richmond West","location":{"lat":49.788,"lon":-97.162},"zoom":15}
+{"id":"waverley-heights","name":"Waverley Heights","location":{"lat":49.818,"lon":-97.168},"zoom":15}
+{"id":"university-of-manitoba","name":"University of Manitoba","location":{"lat":49.809,"lon":-97.133},"zoom":15}
+{"id":"kings-park","name":"Kings Park","location":{"lat":49.798,"lon":-97.118},"zoom":15}
+{"id":"st-norbert","name":"St. Norbert","location":{"lat":49.762,"lon":-97.148},"zoom":14}
+{"id":"bridgwater","name":"Bridgwater","location":{"lat":49.788,"lon":-97.202},"zoom":14}
+{"id":"fort-whyte","name":"Fort Whyte","location":{"lat":49.818,"lon":-97.202},"zoom":14}
+{"id":"waverley-west","name":"Waverley West","location":{"lat":49.798,"lon":-97.192},"zoom":14}
+{"id":"south-point","name":"South Point","location":{"lat":49.778,"lon":-97.182},"zoom":15}
+{"id":"linden-woods","name":"Linden Woods","location":{"lat":49.838,"lon":-97.192},"zoom":15}
+{"id":"whyte-ridge","name":"Whyte Ridge","location":{"lat":49.828,"lon":-97.192},"zoom":15}
+{"id":"grant-park","name":"Grant Park","location":{"lat":49.854,"lon":-97.162},"zoom":15}

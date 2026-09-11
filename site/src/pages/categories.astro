@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { categoryHref, count, loadSite } from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { stats } = await loadSite();
+---
+
+<Layout
+  title={`Categories — ${SITE_NAME}`}
+  description="Browse Winnipeg graffiti and outdoor art as two separate catalogues."
+>
+  <section class="hero">
+    <h1>Categories</h1>
+    <p>Every piece is tagged as graffiti or as outdoor art.</p>
+  </section>
+
+  <div class="card-grid">
+    <a class="card" href={categoryHref('graffiti')}>
+      <h3>Graffiti</h3>
+      <p>{count(stats.graffiti)}</p>
+    </a>
+    <a class="card" href={categoryHref('outdoor-art')}>
+      <h3>Outdoor art</h3>
+      <p>{count(stats.outdoorArt)}</p>
+    </a>
+  </div>
+</Layout>

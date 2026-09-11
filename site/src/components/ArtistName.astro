@@ -1,0 +1,17 @@
+---
+import { artistHref, displayArtistName } from '../lib/data.js';
+
+const { art } = Astro.props;
+const name = displayArtistName(art);
+const record = art.artistRecord || (art.artist && typeof art.artist === 'object' ? art.artist : null);
+---
+
+{
+  name && record ? (
+    <a href={artistHref(record)}>{name}</a>
+  ) : name ? (
+    <span>{name}</span>
+  ) : (
+    <span class="muted">Unknown</span>
+  )
+}

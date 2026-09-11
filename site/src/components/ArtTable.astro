@@ -1,0 +1,73 @@
+---
+import ArtistName from './ArtistName.astro';
+import {
+  artHref,
+  categoryHref,
+  categoryName,
+  count,
+  regionHref,
+} from '../lib/data.js';
+
+const { arts, empty = 'No pieces listed yet.' } = Astro.props;
+---
+
+<div class="table-shell">
+  <table>
+    <thead>
+      <tr>
+        <th>Piece</th>
+        <th>Artist</th>
+        <th>Region</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody id="art-rows">
+      {
+        arts.map((art) => (
+          <tr>
+            <td class="product-cell">
+              <div class="product-flex">
+                {art.imageUrl && (
+                  <img
+                    class="thumb art-thumb"
+                    src={art.imageUrl}
+                    alt=""
+                    loading="lazy"
+                    width="40"
+                    height="40"
+                  />
+                )}
+                <div>
+                  <a href={artHref(art)}>{art.name}</a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <ArtistName art={art} />
+            </td>
+            <td>
+              {art.region ? (
+                <a href={regionHref(art.region)}>{art.region.name ?? art.region}</a>
+              ) : (
+                '—'
+              )}
+            </td>
+            <td>
+              {art.category ? (
+                <a href={categoryHref(art.category)}>{categoryName(art.category)}</a>
+              ) : (
+                '—'
+              )}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  {arts.length === 0 && <p class="empty">{empty}</p>}
+</div>
+{
+  arts.length > 0 && (
+    <p class="result-count table-count">{count(arts.length)}</p>
+  )
+}

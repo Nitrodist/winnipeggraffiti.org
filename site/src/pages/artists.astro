@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { artistHref, count, loadSite } from '../lib/data.js';
+import { SITE_NAME } from '../lib/site.js';
+
+const { artists } = await loadSite();
+---
+
+<Layout
+  title={`Artists — ${SITE_NAME}`}
+  description="Artists with a page in the Winnipeg graffiti and outdoor art catalogue."
+>
+  <section class="hero">
+    <h1>Artists</h1>
+    <p>
+      Artist pages are optional. A piece always shows the name painted on the wall; when we
+      have a record for that person, the name links here.
+    </p>
+  </section>
+
+  {
+    artists.length > 0 ? (
+      <div class="card-grid">
+        {artists.map((artist) => (
+          <a class="card" href={artistHref(artist)}>
+            <h3>{artist.name}</h3>
+            <p>{count(artist.arts.length)}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="empty">No artist pages yet. Names still appear on each piece.</p>
+    )
+  }
+</Layout>

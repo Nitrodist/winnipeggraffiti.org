@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_NAME } from '../lib/site.js';
+---
+
+<Layout title={`Page not found — ${SITE_NAME}`} description="That page does not exist.">
+  <section class="hero">
+    <h1>Page not found</h1>
+    <p>That page does not exist. Try the map, or browse graffiti and outdoor art separately.</p>
+  </section>
+
+  <div class="card-grid">
+    <a class="card" href="/">
+      <h3>Home</h3>
+      <p>Latest pieces and a map of Winnipeg</p>
+    </a>
+    <a class="card" href="/map">
+      <h3>Map</h3>
+      <p>OpenStreetMap plus every region</p>
+    </a>
+    <a class="card" href="/graffiti">
+      <h3>Graffiti</h3>
+      <p>Pieces tagged as graffiti</p>
+    </a>
+    <a class="card" href="/outdoor-art">
+      <h3>Outdoor art</h3>
+      <p>Murals, sculpture, and other outdoor work</p>
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,106 @@
+---
+import ArtistName from '../../components/ArtistName.astro';
+import Layout from '../../layouts/Layout.astro';
+import OsmMap from '../../components/OsmMap.astro';
+import {
+  categoryHref,
+  categoryName,
+  formatCoords,
+  formatDate,
+  loadSite,
+  mapMarkers,
+  osmUrl,
+  regionHref,
+} from '../../lib/data.js';
+import { SITE_NAME } from '../../lib/site.js';
+
+export async function getStaticPaths() {
+  const { arts } = await loadSite();
+  return arts
+    .filter((art) => art.id)
+    .map((art) => ({
+      params: { id: String(art.id) },
+      props: { art },
+    }));
+}
+
+const { art } = Astro.props;
+const markers = mapMarkers([art]);
+const photographed = formatDate(art.photographed_at);
+const added = formatDate(art.created_at);
+---
+
+<Layout
+  title={`${art.name} — ${SITE_NAME}`}
+  description={`${art.name}${art.region?.name ? ` in ${art.region.name}` : ''} — graffiti and outdoor art in Winnipeg.`}
+>
+  <article class="art-page">
+    <p class="kicker">
+      {art.category && (
+        <a href={categoryHref(art.category)}>{categoryName(art.category)}</a>
+      )}
+      {art.region && (
+        <>
+          {' · '}
+          <a href={regionHref(art.region)}>{art.region.name}</a>
+        </>
+      )}
+    </p>
+    <h1>{art.name}</h1>
+    {
+      art.imageUrl && (
+        <img class="art-photo" src={art.imageUrl} alt={art.name} width="860" height="640" />
+      )
+    }
+
+    {art.description && <p class="lede">{art.description}</p>}
+
+    <dl class="dl-meta">
+      <dt>Artist</dt>
+      <dd><ArtistName art={art} /></dd>
+      <dt>Region</dt>
+      <dd>
+        {art.region ? (
+          <a href={regionHref(art.region)}>{art.region.name}</a>
+        ) : (
+          '—'
+        )}
+      </dd>
+      <dt>Category</dt>
+      <dd>
+        {art.category ? (
+          <a href={categoryHref(art.category)}>{categoryName(art.category)}</a>
+        ) : (
+          '—'
+        )}
+      </dd>
+      <dt>Location</dt>
+      <dd>
+        {art.location ? (
+          <a href={osmUrl(art.location)} rel="noopener noreferrer" target="_blank">
+            {formatCoords(art.location)}
+          </a>
+        ) : (
+          '—'
+        )}
+      </dd>
+      <dt>Record id</dt>
+      <dd>{art.id}</dd>
+      {photographed && (
+        <>
+          <dt>Photographed</dt>
+          <dd>{photographed}</dd>
+        </>
+      )}
+      {added && (
+        <>
+          <dt>Added</dt>
+          <dd>{added}</dd>
+        </>
+      )}
+    </dl>
+
+    <h2 class="section">On the map</h2>
+    <OsmMap markers={markers} center={art.location} zoom={16} fit={false} />
+  </article>
+</Layout>

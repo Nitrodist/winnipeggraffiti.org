@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LEGAL_NAME, SITE_NAME } from '../lib/site.js';
+---
+
+<Layout
+  title={`Terms — ${SITE_NAME}`}
+  description={`Terms of use for ${SITE_NAME}, operated by ${LEGAL_NAME}.`}
+>
+  <section class="hero">
+    <h1>Terms</h1>
+    <p>How this site may be used, and what it is not.</p>
+  </section>
+
+  <div class="prose">
+    <p>
+      {SITE_NAME} is operated by <strong>{LEGAL_NAME}</strong>. It catalogues photographs of
+      graffiti and outdoor art in Winnipeg and Manitoba. It is an independent project and is
+      not affiliated with the City of Winnipeg, the Province of Manitoba, or OpenStreetMap.
+    </p>
+
+    <h2>No warranty</h2>
+    <p>
+      Locations, artist attributions, and neighbourhood labels are recorded in good faith and
+      may be incomplete or wrong. The site is provided “as is”, without warranties of any kind.
+      {LEGAL_NAME} is not liable for decisions you make from it, including where you go to look
+      at a wall.
+    </p>
+
+    <h2>Acceptable use</h2>
+    <p>
+      You may browse and share links. You may not scrape this site in a way that overloads it,
+      or use it to impersonate {LEGAL_NAME}.
+    </p>
+
+    <h2>Maps</h2>
+    <p>
+      Map tiles and geographic data are © OpenStreetMap contributors, available under the
+      Open Database Licence. See
+      <a href="https://www.openstreetmap.org/copyright">openstreetmap.org/copyright</a>.
+    </p>
+  </div>
+</Layout>

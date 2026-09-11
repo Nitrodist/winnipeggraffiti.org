@@ -1,0 +1,16 @@
+{
+  "name": "winnipeggraffiti-importer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Import photos into arts.jsonl, prompting in the terminal for anything EXIF and sidecars omit.",
+  "scripts": {
+    "import": "node src/cli.js",
+    "seed": "node src/seed.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.8.0",
+    "exifr": "^7.1.3"
+  }
+}
